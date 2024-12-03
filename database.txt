@@ -1,0 +1,41 @@
+DROP DATABASE IF EXISTS portafolioDB;
+CREATE DATABASE portafolioDB;
+USE portafolioDB;
+
+
+CREATE TABLE user (
+	user_id BINARY(16) NOT NULL DEFAULT(UUID_TO_BIN(UUID())),
+    user_name VARCHAR(50) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
+    PRIMARY KEY(user_id)
+);
+
+CREATE TABLE project (
+	id INT NOT NULL AUTO_INCREMENT,
+    user_id BINARY(16) NOT NULL,
+    title VARCHAR(250) NOT NULL,
+    slug TEXT NOT NULL,
+    description TEXT NOT NULL,
+    image_one TEXT NOT NULL,
+    image_two TEXT NOT NULL,
+    image_three TEXT NOT NULL,
+    git_directroy TEXT NOT NULL,
+    directory TEXT NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(user_id) REFERENCES user(user_id)
+);
+
+INSERT INTO user (user_name,user_password)
+VALUES 
+('jean paul','DARWHASTHh1988:');    
+
+INSERT INTO project 
+(user_id,title,slug,description,image_one,image_two,image_three,git_directory,directory)
+VALUES
+((SELECT user_id FROM user WHERE user.user_name = 'jean paul'),'api rest con MENR','api-rest-con-mern',
+'en esta apli utilizaremos es poder el stack mern',
+'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPFetTPO16c1lEjiqyLF6v3jwQ9khyn_-gtA&s',
+'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0wGCHt7XIY5SzuCmgdbYBgS8Ew6G1peIL9A&s',
+'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF531d4OwHm-EZlYaneK8guuvEsHBVrtE1RQ&s',
+'https://google.com','https://appdesignbook.com/es/contenidos/las-aplicaciones');
+

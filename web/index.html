@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Vertical con Degradado Rojo y Azul</title>
+  <style>
+    /* Estilos generales */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      box-sizing: border-box;
+    }
+    img{
+        width: 100%;
+        height: auto;
+    }
+
+    /* Contenedor principal para scroll vertical */
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 300vh; /* Tres pantallas */
+    }
+
+    /* Estilo para cada div */
+    .section {
+      width: 100%;
+      height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2rem;
+      text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8),
+                   0px 0px 20px rgba(255, 255, 255, 0.6);
+      background: linear-gradient(to right, #ff0000, #0000ff); /* Degradado de rojo a azul */
+      background-size: 200% 200%; /* Tamaño ampliado para animación */
+      animation: neonGradientShift 6s infinite alternate;
+      gap: 1rem;
+    }
+    .header{
+        /*background-color: rgba(0, 0, 0, 0.5);*/
+        width: 60%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        font-size: 1.5rem;
+        gap: 1rem;
+        position: relative;
+    }
+    .header > div {
+        width: 250px;
+        height: 280px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        top:-8rem;
+        left:-6rem;
+        background-color: rgba(121, 40, 40, 0.315);
+        z-index: 0;
+        box-shadow: -5px -2px 5px 2px rgba(66, 23, 23, 0.5),1px -7px 5px 2px rgba(59, 22, 22, 0.205);
+    } 
+    .header > header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(64, 42, 105, 0.39);
+        padding: 2rem;
+        box-shadow: 10px 10px 5px 5px rgba(43, 34, 77, 0.336),20px 20px 10px 10px rgba(30, 25, 51, 0.349);
+    } 
+    .header > * nav {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    } 
+    .header > * ul {
+        width: 70%;
+        list-style-type: none;
+        display: flex;
+        gap: .7rem;
+        margin-block-start: 0;
+        padding: .5rem;
+        background-color: #160bad9f;
+        justify-content: space-around;
+        box-shadow: 1px 1px 7px 8px rgba(194, 193, 196, 0.336);
+        border-radius: .5rem;
+    } 
+    .header > * a {
+        text-decoration: none;
+        color: #e6e6ec;
+    }
+    .header > * a:hover {
+        color: #f31717;
+    }
+    header > p {
+        z-index: 10;
+    }
+    .pick_up_menu{
+        position: fixed;
+        bottom: 5rem;
+        left: 3rem;
+        width: 50px;
+        height: 50px;
+        padding: 1rem;
+        border-radius: 50%;
+        background-color: rgb(255, 255, 255);
+        color: #e7cdcd;
+        box-shadow: 1px 1px 5px 5px rgba(194, 193, 196, 0.336);
+        cursor: pointer;
+        display: none;
+        transition: all .2s;
+    }
+    .pick_up_menu:hover{
+        box-shadow: 1px 1px 10px 10px rgba(194, 193, 196, 0.336);
+        transition: all .2s;
+    }
+    .pick_up_menu_open{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .pick_up_menu > img{
+        transform: rotate(92deg);
+    }
+    .container_project{
+        background-color: rgba(0, 0, 0, 0.418);
+        border-radius: 1rem;
+        width: 75%;
+        height: auto;
+        border: solid thin white;
+        padding: 3rem;
+        display: grid;
+        grid-template-columns: 60% 40%;
+        grid-template-areas: 
+        "img  text"
+        "img  links"
+        "img c-img";
+        font-size: 1rem;
+        gap: 1rem;
+        grid-template-rows: 230px 24px 70px;
+    }
+    .show_image{
+        grid-area: img;
+        width: 100%;
+        height: 100%;
+        border: solid thin white;
+        border-radius: .5rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #070707;
+    }
+    .p_text_content{
+        grid-area: text;
+        width: 100%;
+    }
+    .links{
+        grid-area: links;
+    }
+    .image_content{
+        grid-area: c-img;
+        place-content: center;
+    }
+    .p_text_content > * {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+    .links > ul {
+        list-style-type: none;
+        display: flex;
+        margin-block-start: 0;
+        margin:0;
+        padding: 0;
+        gap: 1rem;
+    }
+    .links >* a {
+        text-decoration: none;
+        color: #d1d1dd;
+    }
+    .image_content{
+        width: 90%;
+        height: 50px;
+        display: flex;
+        justify-content: space-around;
+        gap: .7rem;
+        padding: .5rem;
+        border: solid thin white;
+        border-radius: .5rem;
+        align-self: self-end;
+    }
+
+    .image_content > img {
+        border-radius: .5rem;
+    }
+    .image_content > img:hover {
+        border: solid medium #fdf8ff;
+        cursor: pointer;
+    }
+
+
+    .bottom_reg, .bottom_next{
+        outline: none;
+        width: 32px;
+        height: 32px;
+        border: solid medium white;
+        background-color: transparent;
+        transform: rotate(45deg);
+        border-top: none;
+        border-right: none;
+        cursor: pointer;
+    }
+    .bottom_next{
+        border: solid medium white;
+        transform: rotate(45deg);
+        border-left: none;
+        border-bottom: none;
+    }
+
+    
+
+    /* Animación para simular efecto neón dinámico */
+    @keyframes neonGradientShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    
+
+  </style>
+  <script type="module" >   
+    document.querySelector('body').addEventListener('scroll',(e) => {
+        let textClass = 'pick_up_menu_open'
+        if (e.target.scrollTop != 0) {
+         document.querySelector('.pick_up_menu').classList.remove(textClass)
+        }
+        document.querySelector('.pick_up_menu').classList.toggle(te.children[0].attributes.nodeValue)
+    })
+
+    function createProject({ project }) {
+        const { title, description, image_one, image_two, image_three, git_directory, directory } = project
+        return `<button class="bottom_reg"></button>
+        <div class="container_project">
+            <div class="show_image">
+                <img src="http://localhost:1234/img/${image_one}" alt="imagen del proyecto">
+            </div>
+            <div class="p_text_content">
+                <h2>${ title }</h2>
+                <p>${ description }</p>
+            </div>
+            <nav class="links">
+                <ul>
+                    <li><a href="${ git_directory }">ir al repositorio</a></li>
+    
+                    <li><a href="${ directory }">ver pagina</a></li>
+                
+                    <li><a href="">ir a</a></li>
+                </ul>
+            </nav>
+            <div class="image_content">
+                <img src="http://localhost:1234/img/${image_one}" alt="image 1">
+                <img src="http://localhost:1234/img/${image_two}" alt="image 2">
+                <img src="http://localhost:1234/img/${image_three}" alt="image 3">
+            </div>
+        </div>
+        <button class="bottom_next"></button>`
+    }
+
+    const result = await fetch('http://localhost:1234/projects?page=1')
+    const project = await result.json()
+    document.getElementById('projects').innerHTML = createProject({ project: project.projects[0] })
+    document.querySelector('.image_content').children
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div id="home" class="section">
+        <div class="header">
+            <div>
+                <img src="./Jean Paul-Photoroom.png" alt="jean paul villarreal bustamante">
+            </div>
+            <header>
+                <p>Hi! I'm Jean Paul Villarreal Bustamante, a software analyst and developer. I’m passionate about web development and innovation, and I live with the mindset of continuously improving myself, both personally and professionally.</p>
+                <nav class="menu">
+                    <ul>
+                        <li><a href="">home</a></li>
+                        <li><a href="#experencie">experience</a></li>
+                        <li><a href="#projects">projects</a></li>
+                        <li><a href="">blog</a></li>
+                        <li><a href="">contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+    </div>
+    <div id="experencie" class="section">Sección 2</div>
+    <div id="projects" class="section">
+        
+    </div>
+    <a href="#home" class="pick_up_menu">
+        <img src="./flecha.png" alt="flecha">
+    </a>
+  </div>
+</body>
+</html>
